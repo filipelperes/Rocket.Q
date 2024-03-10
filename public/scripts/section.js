@@ -18,6 +18,13 @@ export default function Section() {
       changeInput();
    }
 
+   function modifySection() {
+      title.innerHTML = 'Crie sua própria sala';
+      label.innerHTML = 'Insira uma senha';
+      button.innerHTML = '<img src="/images/users-w.svg" alt="Criar sala"> Criar Sala';
+      changeAttrs();
+   }
+
    function handleClick(event) {
       event.preventDefault();
       input.value.length > 0 && form.submit();
@@ -26,13 +33,6 @@ export default function Section() {
    function handleKey(event) {
       event.preventDefault();
       (event.target.value.length > 0 && event.which === 13) && form.submit();
-   }
-
-   function modifySection() {
-      title.innerHTML = 'Crie sua própria sala';
-      label.innerHTML = 'Insira uma senha';
-      button.innerHTML = '<img src="/images/users-w.svg" alt="Criar sala"> Criar Sala';
-      changeAttrs();
    }
 
    return {

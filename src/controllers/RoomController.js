@@ -3,20 +3,19 @@ const Database = require("../db/config");
 module.exports = {
    async create(req, res) {
       const { password } = req.body;
-      let room, exist = true;
+      let room, exists = true;
 
       const db = await Database();
 
-      while (exist) {
+      while (exists) {
          room = Math.floor(Math.random() * 900000) + 100000;
-
-         // CHECK IF ROOM ID EXIST
-         const rooms = await db.all(`SELECT id FROM rooms`);
-         exist = rooms.some(id => id === room);
+         const rooms = await db.get(`SELECT id FROM rooms WHERE id = ${room}`);
+         if (!rooms) break;
       }
 
+
       //SAVE ROOM IN DATABASE IF ID ROOM NOT EXIST
-      !exist && await db.run(`INSERT INTO rooms (
+      await db.run(`INSERT INTO rooms (
          id,
          pass
       ) VALUES (
