@@ -7,14 +7,14 @@ module.exports = {
 
       const db = await Database();
 
+      //GENERATE NON-EXISTENT ID FOR ROOM
       while (exists) {
          room = Math.floor(Math.random() * 900000) + 100000;
          const rooms = await db.get(`SELECT id FROM rooms WHERE id = ${room}`);
          if (!rooms) break;
       }
 
-
-      //SAVE ROOM IN DATABASE IF ID ROOM NOT EXIST
+      //SAVE ROOM IN DATABASE
       await db.run(`INSERT INTO rooms (
          id,
          pass
