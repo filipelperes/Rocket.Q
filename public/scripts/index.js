@@ -6,6 +6,7 @@ const form = document.querySelector('#home main section:first-child form');
 const input = document.querySelector('#home main section:first-child form input');
 const button = document.querySelector('#home main section:first-child form button');
 const createRoomButton = document.querySelector('#home main section:last-child a.button');
+let clickCondition = input.value.length === 6;
 
 const hideElements = () => {
    const separator = document.querySelector('#home main .separator');
@@ -17,7 +18,7 @@ const hideElements = () => {
 
 const handleClick = event => {
    event.preventDefault();
-   input.value.length === 6 && form.submit();
+   clickCondition && form.submit();
 };
 
 const handleKey = event => {
@@ -27,22 +28,14 @@ const handleKey = event => {
    } else input.classList.contains('ok') ? input.classList.replace('ok', 'miss') : input.classList.add('miss');
 };
 
-const addEventListener = (key = handleKey, click = handleClick) => {
-   input.addEventListener('keyup', key);
-   button.addEventListener('click', click);
-};
-
-const removeEventListener = () => {
-   input.removeEventListener('keyup', handleKey);
-   button.removeEventListener('click', handleClick);
-};
-
-addEventListener();
+input.addEventListener('keyup', handleKey);
+button.addEventListener('click', handleClick);
 createRoomButton.addEventListener('click', event => {
    event.preventDefault();
    document.title = "Criar Sala - Rocket.Q";
    hideElements();
    section.modifySection();
-   removeEventListener();
-   addEventListener(section.handleKey, section.handleClick);
+   clickCondition = input.value.length > 0;
+   input.removeEventListener('keyup', handleKey);
+   input.addEventListener('keyup', section.handleKey);
 });

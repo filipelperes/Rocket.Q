@@ -25,18 +25,12 @@ export default function Section() {
       changeAttrs();
    }
 
-   function handleClick(event) {
-      event.preventDefault();
-      input.value.length > 0 && form.submit();
-   }
-
    function handleKey(event) {
       event.preventDefault();
       (event.target.value.length > 0 && event.which === 13) && form.submit();
    }
 
    return {
-      handleClick,
       handleKey,
       modifySection
    };
